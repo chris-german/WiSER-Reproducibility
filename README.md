@@ -17,7 +17,7 @@ We apply WiSER to three datasets: the Women’s Health Study Accelerometry Study
 
 - [x] Data are publicly available by request, following the process described here:
 
-    * WHS: From dbGaP, the protocols and requirements for requesting data are available at: https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001964.v1.p1dbGaP
+    * WHS: From dbGaP, the protocols and requirements for requesting data are available at: https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001964.v1.p1
 
     * ACCORD: From BioLINCC, the protocols and requirements for requesting data are available at:  https://biolincc.nhlbi.nih.gov/studies/accord/ 
 
@@ -30,8 +30,9 @@ We apply WiSER to three datasets: the Women’s Health Study Accelerometry Study
 
 ### Data dictionary
 - [x] Available at the following URL: 
-    - WHS: From dbGaP, the protocols and requirements for requesting data are available at: https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001964.v1.p1dbGaP
-    - ACCORD: From BioLINCC, the protocols and requirements for requesting data are available at:  https://biolincc.nhlbi.nih.gov/studies/accord/ 
+    * WHS: From variable descriptions are located at: https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/dataset.cgi?study_id=phs001964.v1.p1&phv=427400&phd=8090&pha=&pht=9960&phvf=&phdf=&phaf=&phtf=&dssp=1&consent=&temp=1
+
+    * ACCORD: the Data Dictionary for the ACCORD data is available from BioLINCC at:  https://biolincc.nhlbi.nih.gov/studies/accord/ under the "Study Documents" section. 
 
 # Part 2: Code
 
