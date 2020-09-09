@@ -2,7 +2,7 @@
 
 ## Abstract
 
-We apply WiSER to three datasets: the Women’s Health Study Accelerometry Study (WHS via dbGaP), The Action to Control Cardiovascular Disease (ACCORD via BioLINCC), and S&P 500/ President Trump’s Twitter Data (publicly available). WHS data contains accelerometer data on over 15,000 women over 7 days. ACCORD data contains data from a multi-center trial in patients with type II diabetes. The S&P 500/Trump Twitter data is data downloaded from publically available web APIs.  
+We apply WiSER to three datasets: the Women’s Health Study Accelerometry Study (WHS via dbGaP), The Action to Control Cardiovascular Disease (ACCORD via BioLINCC), and S&P 500/ President Trump’s Twitter Data (publicly available). WHS data contains accelerometer data on over 15,000 women over 7 days. ACCORD data contains data from a multi-center trial in patients with type II diabetes. The S&P 500/Trump Twitter data is data downloaded from publicly available web APIs.  
 
 
 ## Availability
@@ -13,7 +13,7 @@ We apply WiSER to three datasets: the Women’s Health Study Accelerometry Study
 ### Publicly available data
 
 - [x] Data are available online at:
-    - S&P 500/Trump Twitter: S&P500 data are publically available to download via Stock APIs, unemployment rate was obtained from the Federal Reserve Economic Data (FRED) database at https://fred.stlouisfed.org/series/UNRATE, and Trump's tweets are downloaded from http://www.trumptwitterarchive.com/.
+    - S&P 500/Trump Twitter: S&P500 data are publicly available to download via Stock APIs, unemployment rate was obtained from the Federal Reserve Economic Data (FRED) database at https://fred.stlouisfed.org/series/UNRATE, and Trump's tweets are downloaded from http://www.trumptwitterarchive.com/.
 
 - [x] Data are publicly available by request, following the process described here:
 
