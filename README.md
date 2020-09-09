@@ -62,8 +62,8 @@ WiSER.jl version v0.0.2.
 
 #### Libraries and dependencies used by the code
 
-R packages: ggplot2, facetgrid
-Julia Packages: WiSER (and its dependencies found at https://github.com/OpenMendel/WiSER.jl/blob/master/Project.toml), KNITRO, StatsBase, DataFrames, CSV, MarketData, TimeZones, CodecZlib, Roots, SpecialFunctions, DelimitedFiles, GLM
+- R packages: facetgrid, ggplot2
+- Julia Packages: WiSER (and its dependencies found at https://github.com/OpenMendel/WiSER.jl/blob/master/Project.toml), CodecZlib, CSV, DataFrames, DelimitedFiles, GLM, KNITRO, MarketData, RCall, Roots, SpecialFunctions, StatsBase, TimeZones, DelimitedFiles
 
 
 
