@@ -1,0 +1,104 @@
+---
+title: "cleanACCORD"
+author: "Jin Zhou and Chris German - Modified Jin Zhou's Script"
+date: "8/04/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=F}
+rm(list = ls())
+#lapply(paste('package:',names(sessionInfo()$otherPkgs),sep=""),detach,character.only=TRUE,unload=TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(sas7bdat)
+library(Gmisc, verbose = FALSE)
+library(Hmisc)
+library(reshape2) 
+library(plyr)
+library(tidyverse)
+library(xtable)
+library(haven)
+library(kableExtra)
+library(tableone)
+options(stringsAsFactors = FALSE)
+options(scipen=999)
+```
+
+## Load ACCORD datasets
+```{r,warning=F,results=F}
+datasets_folder <- "/Users/christophergerman/Box Sync/ACCORD/Main_Study/3-Data_Sets-Analysis/3a-Analysis_Data_Sets/"
+
+activitystatus <- 
+   haven::read_sas(paste(datasets_folder,"activitystatus.sas7bdat",sep = ""))
+
+accord_key <- 
+  haven::read_sas(paste(datasets_folder,"accord_key.sas7bdat",sep = "")) %>% 
+  ## if intensive glycemic arm glycemic_arm=1, otherwise 0.
+  mutate(glycemic_arm = ifelse(arm==1|arm==2|arm==5|arm==6,0,1),
+         bp_arm = ifelse(arm==3 | arm ==1,1,0),
+         lipid_arm = ifelse(arm==7 | arm == 5,1,0))
+
+cvdoutcomes <- haven::read_sas(paste(datasets_folder,"cvdoutcomes.sas7bdat",sep = "")) 
+microvascularoutcomes <- haven::read_sas(paste(datasets_folder,"microvascularoutcomes.sas7bdat",sep=""))
+
+hypoevents <-  haven::read_sas(paste(datasets_folder,"hypoglycemiaevents.sas7bdat",sep = "")) 
+hypoglycemiatime1st <- haven::read_sas(paste(datasets_folder,"hypoglycemiatime1st.sas7bdat",sep = "")) 
+
+hba1c <- haven::read_sas(paste(datasets_folder,"hba1c.sas7bdat",sep = "")) 
+lipids <- haven::read_sas(paste(datasets_folder,"lipids.sas7bdat",sep=""))
+bloodpressure <- haven::read_sas(paste(datasets_folder,"bloodpressure.sas7bdat",sep=""))
+
+otherlabs <- haven::read_sas(paste(datasets_folder,"otherlabs.sas7bdat",sep=""))   
+                                         
+CRF_folder <- "/Users/christophergerman/Box Sync/ACCORD/Main_Study/4-Data_Sets-CRFs/4a-CRF_Data_Sets/"
+
+f07_baseline <- haven::read_sas(paste(CRF_folder,"f07_baselinehistoryphysicalexam.sas7bdat",sep = "")) 
+f36_annualfollowupphysicalexam <- haven::read_sas(paste(CRF_folder,"f36_annualfollowupphysicalexam.sas7bdat",sep = "")) 
+f29_champsphysicalactivity <- haven::read_sas(paste(CRF_folder,"f29_champsphysicalactivity.sas7bdat",sep = "")) 
+f26_dietquestionnaire <- haven::read_sas(paste(CRF_folder,"f26_dietquestionnaire.sas7bdat",sep = "")) 
+f34_intervalhistoryfollowup <- haven::read_sas(paste(CRF_folder,"f34_intervalhistoryfollowup.sas7bdat",sep = "")) 
+f01_inclusionexclusionsummary <- haven::read_sas(paste(CRF_folder,"f01_inclusionexclusionsummary.sas7bdat",sep = "")) %>% select(MaskID, x4smoke)
+f08_09_glycemiamanagement <- haven::read_sas(paste(CRF_folder,"f08_09_glycemiamanagement.sas7bdat",sep = ""))
+
+wt_kg_interval <- f34_intervalhistoryfollowup %>% select(MaskID, Visit, wt_kg)
+wt_kg_annual <- f36_annualfollowupphysicalexam %>% select(MaskID, Visit, wt_kg, ht_cm)
+wt_kg_baseline <- f07_baseline %>% select(MaskID, Visit, wt_kg, ht_cm)
+wt_kg <- bind_rows(wt_kg_annual, wt_kg_interval, wt_kg_baseline) %>% arrange(MaskID, Visit)
+wt_kg <- wt_kg %>% group_by %>% fill(wt_kg, .direction = "down")
+wt_kg <- wt_kg %>% group_by %>% fill(ht_cm, .direction = "down")
+
+insulin <- f08_09_glycemiamanagement %>% left_join(wt_kg, by=c("MaskID", "Visit"))
+f10_glycemiamedicationslog <- haven::read_sas(paste(CRF_folder,"f10_glycemiamedicationslog.sas7bdat",sep = ""))
+
+oral_medications <- f10_glycemiamedicationslog %>% select(MaskID, Visit, Xoralgmed, oral_gmed)
+oral_medications$oral_gmed = ifelse(oral_medications$oral_gmed == "", "None", oral_medications$oral_gmed)
+oral_medications$isgmed = ifelse(oral_medications$oral_gmed == "None", 0, 1)
+
+oralmeds2 <- dcast(oral_medications, MaskID + Visit + Xoralgmed ~ oral_gmed, value.var = "isgmed")
+oralmeds2[is.na(oralmeds2)] <- 0
+
+oralmeds2 <- oralmeds2 %>%
+  mutate(sulphonylureas = ifelse(gliclazide==1|glimepiride==1|glipizide==1|glyburide==1|sulfonylurea==1, 1 , 0),
+         alpha_glucosidase_inhibitors = ifelse(acarbose==1, 1 , 0),
+         incretin_mimetics = ifelse(exanatide==1, 1 , 0),
+         #metformin = ifelse(metformin=1, 1 , 0), # already in dataset
+         meglitinides = ifelse(nateglinide==1|repaglinide==1, 1 , 0),
+         thiazolidinediones = ifelse(pioglitazone==1|rosiglitazone==1, 1 , 0),
+         antihyperglycemics = ifelse(pramlintide==1, 1 , 0),
+         DPP4_inhibitors = ifelse(sitagliptin==1, 1 , 0))
+
+```
+
+
+For WiSER Model:
+```{r}
+wiserdata <- full_join(otherlabs, hba1c, by = c("MaskID", "Visit"))
+wiserdata <- left_join(wiserdata, accord_key, by = "MaskID")
+wiserdata <- left_join(wiserdata, oralmeds2, by = c("MaskID", "Visit"))
+wiserdata <- left_join(wiserdata, f08_09_glycemiamanagement, by = c("MaskID", "Visit"))
+wiserdata <- left_join(wiserdata, wt_kg, by = c("MaskID", "Visit"))
+wiserdata <- wiserdata %>% group_by(MaskID) %>% fill(wt_kg, .direction = "down")
+wiserdata <- wiserdata %>% group_by(MaskID) %>% fill(ht_cm, .direction = "down")
+
+write_csv(wiserdata, "AccordWiSER_oralmeds.csv")
+
+```
