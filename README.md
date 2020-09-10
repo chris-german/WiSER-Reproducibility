@@ -63,7 +63,7 @@ WiSER.jl version v0.0.2.
 #### Libraries and dependencies used by the code
 
 - R packages: facetgrid, ggplot2
-- Julia Packages: WiSER (and its dependencies found at https://github.com/OpenMendel/WiSER.jl/blob/master/Project.toml), CodecZlib, CSV, DataFrames, DelimitedFiles, GLM, KNITRO, MarketData, RCall, Roots, SpecialFunctions, StatsBase, TimeZones, DelimitedFiles
+- Julia Packages: WiSER (and its dependencies found at https://github.com/OpenMendel/WiSER.jl/blob/master/Project.toml), CodecZlib, CSV, DataFrames, DelimitedFiles, GLM, KNITRO [academic license], MarketData, RCall, Roots, SpecialFunctions, StatsBase, TimeZones, DelimitedFiles
 
 
 
@@ -98,6 +98,16 @@ The jupyter notebooks and code provided can be used to reproduce all results (in
 ### Instructions
 
 Each subfolder in the github repository links to certain sections of the paper (Simulations, Women's Health Study, ACCORD, Twitter/Stock data). These each contain jupyter notebook that go step-by-step through the workflow of the paper, starting from cleaning the data to analyzing the data. Once you have access to the data, you can run these notebooks with the data and it will produce the results seen in the paper. 
+
+**note**: In order to run Julia in a jupyter notebook, you must install Julia then run the following in Julia:
+
+```
+using Pkg
+Pkg.add("IJulia")
+Pkg.build("IJulia")
+using IJulia
+notebook()
+```
 
 ### Expected run-time
 

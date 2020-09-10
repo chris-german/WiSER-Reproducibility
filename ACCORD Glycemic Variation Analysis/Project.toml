@@ -1,0 +1,6 @@
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+KNITRO = "67920dd8-b58e-52a8-8622-53c4cffbe346"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+WiSER = "2ff19380-1883-49fc-9d10-450face6b90c"
