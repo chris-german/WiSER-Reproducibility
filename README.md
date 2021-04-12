@@ -2,8 +2,7 @@
 
 ## Abstract
 
-We apply WiSER to three datasets in order to investigate factors related to intra-individual variability: the Women’s Health Study Accelerometry Study (WHS available via dbGaP), The Action to Control Cardiovascular Disease (ACCORD available via BioLINCC), and S&P 500/ President Trump’s Twitter Data (publicly available). WHS data contains accelerometer data on over 15,000 women over 7 days. ACCORD data contains data from a multi-center trial in patients with type II diabetes. The S&P 500/Trump Twitter data is data downloaded from publicly available web APIs that contain Trump's Tweets and Daily historic stock data from the stocks in S&P 500. 
-
+We apply WiSER to two datasets in order to investigate factors related to intra-individual variability: the Women’s Health Study Accelerometry Study (WHS available via dbGaP) and The Action to Control Cardiovascular Disease (ACCORD available via BioLINCC). WHS data contains accelerometer data on over 15,000 women over 7 days. ACCORD data contains data from a multi-center trial in patients with type II diabetes. 
 
 ## Availability
 
@@ -12,8 +11,6 @@ We apply WiSER to three datasets in order to investigate factors related to intr
 
 ### Publicly available data
 
-- [x] Data are available online at:
-    - S&P 500/Trump Twitter: S&P500 data are publicly available to download via Stock APIs, unemployment rate was obtained from the Federal Reserve Economic Data (FRED) database at https://fred.stlouisfed.org/series/UNRATE, and Trump's tweets are downloaded from http://www.trumptwitterarchive.com/. The workflow for downloading this data is given, but we also supply the data in the GitHub repository for this analysis in the `trump_twitter_stock_analysis` subfolder.
 
 - [x] Data are publicly available by request, following the process described here:
 
@@ -97,7 +94,7 @@ The Jupyter notebooks and code provided can be used to reproduce all results (in
 
 ### Instructions
 
-Each subfolder in the GitHub repository links to certain sections of the paper (Simulations, Women's Health Study, ACCORD, Twitter/Stock data). These each contain Jupyter notebooks with extensions `.ipynb` that go step-by-step through the workflow of the analyses presented in the paper, starting from downloading the data (when applicable), to cleaning the data, to analyzing the data. Once you have access to the data sets that require researcher requests, you can run these notebooks with the data and it will produce the results seen in the paper. For easy readability, `.html` files of the rendered notebooks are also included, which can be opened to view the notebook contents without launching Jupyter. 
+Each subfolder in the GitHub repository links to certain sections of the paper (Simulations, Women's Health Study, ACCORD). These each contain Jupyter notebooks with extensions `.ipynb` that go step-by-step through the workflow of the analyses presented in the paper, starting from downloading the data (when applicable), to cleaning the data, to analyzing the data. Once you have access to the data sets that require researcher requests, you can run these notebooks with the data and it will produce the results seen in the paper. For easy readability, `.html` files of the rendered notebooks are also included, which can be opened to view the notebook contents without launching Jupyter. 
 
 **Note**: In order to run Julia in a Jupyter notebook, you must install Julia and the IJulia package. After downloading and launching Julia, IJulia can be installed and Jupyter notebook can be launched by running the following code in Julia:
 
@@ -112,7 +109,7 @@ notebook()
 ### Expected run-time
 
 Approximate time needed to reproduce the analyses on a standard desktop machine:
-- [x] > 8 hours
+- [x] > 80 hours
 
 ### Additional information (optional)
 
